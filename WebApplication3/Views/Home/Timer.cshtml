@@ -1,0 +1,101 @@
+﻿﻿@using System.Web.UI.WebControls
+@using WebApplication3.Controllers
+@{
+    ViewBag.Title = "Timer";
+
+}
+
+@model WebApplication3.Models.TimerModel
+
+
+<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
+<link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" media="screen" />
+<script type="text/javascript" src="~/Scripts/CalendarProcessing.js"> </script>
+
+
+
+
+
+
+
+<div class="row">
+    <div class="col-md-4" id="datetimepicker">
+        <h1>@ViewBag.Title</h1>
+
+        @Html.Label("Select a Date: ")
+
+        @using (Html.BeginForm("Timer", "Home"))
+            {
+
+
+            <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+            <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+            <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+            <link rel="stylesheet" href="/resources/demos/style.css">
+                <script>
+                    $(function() {
+                        $("#EndDate").datepicker({
+                            showOn: "button",
+                            buttonImage: "images/calendar.gif",
+                            buttonImageOnly: true,
+                            buttonText: "Select date"
+                        });
+                    });
+                </script>
+
+            @Html.TextBoxFor(model => model.EndDate, new { @placeholder = "Enter a date" })
+            
+                <div>
+                    <p>
+                        @Html.Label("Description")
+                        @Html.TextBoxFor(model => model.Description, new { @placeholder = "Enter a description" })
+                    </p>
+                </div>
+
+                <div>
+                    <input type="submit" value="Submit" class="btn btn-primary btn-lg" id="submit" />
+                    @Html.ActionLink("View Times", "ViewTimes", "Home")
+                </div>
+        }
+    </div>
+
+
+
+    <div class="col-md-8">
+        <h1>@Model.Title</h1>
+        <div class="" col-md-4>
+            @if (Model.Success)
+            {
+
+                <div class="alert alert-success" role="alert">
+                    <p>
+                        <h4> The following has been added </h4>
+                    </p>
+
+                    <p>
+                        <b>@Model.Description </b>:
+                        @Model.DeadlineDateString
+                    </p>
+
+                    <break>
+                        Days until deadline: @Model.TotalDays
+                    </break>
+                </div>
+
+
+            }
+
+            @*else
+                {
+                  <div class="alert alert-danger" role="alert">
+                    <h4> An error has occured </h4>
+                  </div>
+
+                }*@
+        </div>
+    </div>
+
+
+
+    @*<div class="col-md-4">@ViewBag.Message </div>*@
+</div>
